@@ -1,31 +1,48 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-      <li><a href="https://gitter.im/vuejs/vue" target="_blank">Gitter Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
-      <br>
-      <li><a href="http://vuejs-templates.github.io/webpack/" target="_blank">Docs for This Template</a></li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
-      <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
-    </ul>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      
+  <table class="table">
+    <tr class="text-center">
+      <th class="text-center">Cedula</th>
+      <th class="text-center">Nombre</th>
+      <th class="text-center">Fecha</th>
+    </tr>
+  <!-- Aqui ira el for -->
+    <tr v-for="student in students">
+      <td>{{student['26799219']}}</td>
+      <td>{{student['ALEJANDRO JOSE']}} {{student['CASANOVA URIBE']}}</td>
+      <td>{{student['19/01/2017 hora 8:00 am']}}</td>
+    </tr>
+  <!-- Aqui termina el for -->
+  </table>
+
+    </div>
   </div>
+</div>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'hello',
   data () {
     return {
-      msg: 'Pagina de Inicio Editado'
+      msg: 'Pagina de Inicio Editado',
+      students: []
+    }
+  },
+  mounted: function () {
+    this.getStudents()
+    console.log('Se monto estudiantes')
+  },
+  methods: {
+    getStudents: function () {
+      var self = this
+      axios.get('https://api.myjson.com/bins/1h45r7').then((response) => {
+        self.students = response.data
+      })
     }
   }
 }
@@ -33,7 +50,7 @@ window.document.title = 'Coordinacion de Sistemas - Inicio'
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style>
 h1, h2 {
   font-weight: normal;
 }
